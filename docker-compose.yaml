@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: laravel-app
+    ports:
+      - "8021:8000"
+    volumes:
+      - .:/var/www
+    networks:
+      - laravel_network
+    depends_on:
+      - mysql
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: db_lalungguh_batik
+      MYSQL_USER: ardhani
+      MYSQL_PASSWORD: opal
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel_network
+
+networks:
+  laravel_network:
+    driver: bridge
